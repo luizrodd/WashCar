@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\dev\\WashCar\\WashCar.Domain\\WashCar.Domain.csproj",
+      "projectUniqueName": "C:\\dev\\WashCar\\API\\WashCar.Domain\\WashCar.Domain.csproj",
       "projectName": "WashCar.Domain",
-      "projectPath": "C:\\dev\\WashCar\\WashCar.Domain\\WashCar.Domain.csproj",
+      "projectPath": "C:\\dev\\WashCar\\API\\WashCar.Domain\\WashCar.Domain.csproj",
       "packagesPath": "C:\\Users\\luizb\\.nuget\\packages\\",
-      "outputPath": "C:\\dev\\WashCar\\WashCar.Domain\\obj\\",
+      "outputPath": "C:\\dev\\WashCar\\API\\WashCar.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

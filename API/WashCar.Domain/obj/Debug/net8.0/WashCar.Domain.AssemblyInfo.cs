@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WashCar.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d66c11f0e26dffb423c445d460dfa69a17bb0d30")]
 [assembly: System.Reflection.AssemblyProductAttribute("WashCar.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WashCar.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

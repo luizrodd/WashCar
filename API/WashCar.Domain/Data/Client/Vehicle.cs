@@ -4,7 +4,7 @@ namespace WashCar.Domain.Data.Client;
 
 public class Vehicle : Entity<Guid>
 {
-    public Vehicle(string model, string color, string plate, string year) 
+    public Vehicle(string model, string color, string plate, string year, DateTime lastVisitedAt) 
     {
         Id = Guid.NewGuid();
 
@@ -13,8 +13,7 @@ public class Vehicle : Entity<Guid>
         Plate = plate;
         Year = year;
         CreatedAt = DateTime.UtcNow;
-        LastVisitedAt = DateTime.UtcNow;
-
+        LastVisitedAt = lastVisitedAt;
         TotalVisits = 0;
     }
 
@@ -22,9 +21,7 @@ public class Vehicle : Entity<Guid>
     public string Color { get; private set; }
     public string Plate { get; private set; }
     public string Year { get; private set; }
-
     public DateTime CreatedAt { get; private set; } 
     public DateTime LastVisitedAt { get; private set; } 
-
     public int TotalVisits { get; private set; }
 }

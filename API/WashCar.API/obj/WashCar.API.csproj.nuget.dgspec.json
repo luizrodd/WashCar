@@ -1,17 +1,105 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\WashCar\\WashCar.API\\WashCar.API.csproj": {}
+    "C:\\dev\\WashCar\\API\\WashCar.API\\WashCar.API.csproj": {}
   },
   "projects": {
-    "C:\\dev\\WashCar\\WashCar.API\\WashCar.API.csproj": {
+    "C:\\dev\\WashCar\\API\\WashCar.API\\WashCar.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\WashCar\\WashCar.API\\WashCar.API.csproj",
+        "projectUniqueName": "C:\\dev\\WashCar\\API\\WashCar.API\\WashCar.API.csproj",
         "projectName": "WashCar.API",
-        "projectPath": "C:\\dev\\WashCar\\WashCar.API\\WashCar.API.csproj",
+        "projectPath": "C:\\dev\\WashCar\\API\\WashCar.API\\WashCar.API.csproj",
         "packagesPath": "C:\\Users\\luizb\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\WashCar\\WashCar.API\\obj\\",
+        "outputPath": "C:\\dev\\WashCar\\API\\WashCar.API\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\luizb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\dev\\WashCar\\API\\WashCar.Infrastructure\\WashCar.Infrastructure.csproj": {
+                "projectPath": "C:\\dev\\WashCar\\API\\WashCar.Infrastructure\\WashCar.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.22.1, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.6.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\dev\\WashCar\\API\\WashCar.Domain\\WashCar.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\dev\\WashCar\\API\\WashCar.Domain\\WashCar.Domain.csproj",
+        "projectName": "WashCar.Domain",
+        "projectPath": "C:\\dev\\WashCar\\API\\WashCar.Domain\\WashCar.Domain.csproj",
+        "packagesPath": "C:\\Users\\luizb\\.nuget\\packages\\",
+        "outputPath": "C:\\dev\\WashCar\\API\\WashCar.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -49,14 +137,89 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\dev\\WashCar\\API\\WashCar.Infrastructure\\WashCar.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\dev\\WashCar\\API\\WashCar.Infrastructure\\WashCar.Infrastructure.csproj",
+        "projectName": "WashCar.Infrastructure",
+        "projectPath": "C:\\dev\\WashCar\\API\\WashCar.Infrastructure\\WashCar.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\luizb\\.nuget\\packages\\",
+        "outputPath": "C:\\dev\\WashCar\\API\\WashCar.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\luizb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\dev\\WashCar\\API\\WashCar.Domain\\WashCar.Domain.csproj": {
+                "projectPath": "C:\\dev\\WashCar\\API\\WashCar.Domain\\WashCar.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[1.22.1, )"
+              "version": "[8.0.0, )"
             },
-            "Swashbuckle.AspNetCore": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[6.6.2, )"
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [
@@ -71,9 +234,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

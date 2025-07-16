@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QhEHZKKFcIU=",
+  "dgSpecHash": "TLjl8DuzFmg=",
   "success": true,
-  "projectFilePath": "C:\\dev\\WashCar\\WashCar.Domain\\WashCar.Domain.csproj",
+  "projectFilePath": "C:\\dev\\WashCar\\API\\WashCar.Domain\\WashCar.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

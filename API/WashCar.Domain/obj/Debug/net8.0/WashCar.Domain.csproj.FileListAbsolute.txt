@@ -1,0 +1,12 @@
+C:\dev\WashCar\API\WashCar.Domain\bin\Debug\net8.0\WashCar.Domain.deps.json
+C:\dev\WashCar\API\WashCar.Domain\bin\Debug\net8.0\WashCar.Domain.dll
+C:\dev\WashCar\API\WashCar.Domain\bin\Debug\net8.0\WashCar.Domain.pdb
+C:\dev\WashCar\API\WashCar.Domain\obj\Debug\net8.0\WashCar.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\WashCar\API\WashCar.Domain\obj\Debug\net8.0\WashCar.Domain.AssemblyInfoInputs.cache
+C:\dev\WashCar\API\WashCar.Domain\obj\Debug\net8.0\WashCar.Domain.AssemblyInfo.cs
+C:\dev\WashCar\API\WashCar.Domain\obj\Debug\net8.0\WashCar.Domain.csproj.CoreCompileInputs.cache
+C:\dev\WashCar\API\WashCar.Domain\obj\Debug\net8.0\WashCar.Domain.sourcelink.json
+C:\dev\WashCar\API\WashCar.Domain\obj\Debug\net8.0\WashCar.Domain.dll
+C:\dev\WashCar\API\WashCar.Domain\obj\Debug\net8.0\refint\WashCar.Domain.dll
+C:\dev\WashCar\API\WashCar.Domain\obj\Debug\net8.0\WashCar.Domain.pdb
+C:\dev\WashCar\API\WashCar.Domain\obj\Debug\net8.0\ref\WashCar.Domain.dll

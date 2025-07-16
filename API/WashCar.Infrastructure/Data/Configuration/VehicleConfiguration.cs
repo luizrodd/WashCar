@@ -14,7 +14,6 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
             .IsRequired()
             .ValueGeneratedNever();
 
-
         builder.Property(v => v.Model)
             .IsRequired()
             .HasMaxLength(255);
@@ -31,12 +30,11 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
             .IsRequired()
             .HasMaxLength(4);
 
-
         builder.Property(v => v.CreatedAt)
             .IsRequired();
 
         builder.Property(v => v.LastVisitedAt)
-            .IsRequired(false);
+            .IsRequired();
 
         builder.Property(x => x.TotalVisits)
             .IsRequired();

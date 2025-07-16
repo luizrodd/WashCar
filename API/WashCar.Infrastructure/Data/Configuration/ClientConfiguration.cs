@@ -31,7 +31,7 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
 
         builder.HasMany(c => c.Vehicles)
             .WithOne()
-            .HasForeignKey("VehicleId")
+            .HasForeignKey("ClientId")
             .HasConstraintName("FK_Client_Vehicle")
             .OnDelete(DeleteBehavior.Cascade);
     }

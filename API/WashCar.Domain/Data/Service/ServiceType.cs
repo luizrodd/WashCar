@@ -1,21 +1,22 @@
-﻿namespace WashCar.Domain.Data.Service
+﻿namespace WashCar.Domain.Data.Service;
+
+public class ServiceType
 {
-    public class ServiceType
-    {
-        public ServiceTypeEnum Id { get; set; }
-        public string Name { get; set; }
+    public ServiceTypeEnum Id { get; set; }
+    public string Name { get; set; }
 
-        public ServiceType(ServiceTypeEnum type)
-        {
-            Id = type;
-            Name = type.ToString();
-        }
-    }
+    private ServiceType() { }
 
-    public enum ServiceTypeEnum
+    public ServiceType(ServiceTypeEnum type)
     {
-        Basic,
-        Premium,
-        Detailing
+        Id = type;
+        Name = type.ToString();
     }
+}
+
+public enum ServiceTypeEnum
+{
+    Basic,
+    Premium,
+    Detailing
 }
