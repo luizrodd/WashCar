@@ -1,6 +1,0 @@
-@WashCar.API_HostAddress = http://localhost:5193
-
-GET {{WashCar.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
