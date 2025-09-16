@@ -7,4 +7,5 @@ public class ClientDetailsDTO
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
     public List<VehicleDTO> Vehicles { get; set; }
+    public DateTime LastVisitedAt => Vehicles != null && Vehicles.Any() ? Vehicles.Max(v => v.LastVisitedAt) : DateTime.MinValue;
 }

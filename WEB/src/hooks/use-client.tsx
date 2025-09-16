@@ -1,4 +1,4 @@
-import { createClient, getClients } from "@/services/clientService";
+import { createClient, getClientById, getClients } from "@/services/clientService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useClients = () =>
@@ -12,3 +12,10 @@ export const useCreateClient = () => {
         mutationFn: createClient,
     })
 }
+
+export const useClientById = (id: string) =>
+    useQuery({
+        queryKey: ["client", id],
+        queryFn: () => getClientById(id),
+        enabled: !!id, // Only run the query if id is truthy
+    });

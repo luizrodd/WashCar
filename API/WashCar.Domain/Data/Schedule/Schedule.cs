@@ -12,7 +12,7 @@ public class Schedule : Entity<Guid>, IAggregateRoot
         _services = new List<ScheduleService>();
     }
 
-    public Schedule(Guid vehicleId, DateTime scheduledAt, Guid[] servicesId) : this()
+    public Schedule(Guid vehicleId, DateTime scheduledAt, Guid[] servicesId, ISchedulePolicy policy) : this()
     {
         Id = Guid.NewGuid();
 
@@ -21,6 +21,10 @@ public class Schedule : Entity<Guid>, IAggregateRoot
         CreatedAt = DateTime.UtcNow;
 
         _services.AddRange(servicesId.Select(serviceId => new ScheduleService(serviceId)));
+
+        var validation = policy.ValidateIfCanCreate();
+        if (validation != SchedulePolicyEnum.OK)
+            throw new CustomException("Schedule cannot be created due to policy violation. ${validation}");
     }
 
 

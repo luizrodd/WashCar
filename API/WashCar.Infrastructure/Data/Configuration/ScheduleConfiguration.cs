@@ -35,7 +35,7 @@ public class ScheduleConfiguration : IEntityTypeConfiguration<Schedule>
 
         builder.HasMany(x => x.Services)
             .WithOne()
-            .HasForeignKey(s => s.ServiceId)
+            .HasForeignKey(s => s.Id)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_ScheduleService_Schedule");
     }

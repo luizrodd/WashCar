@@ -11,3 +11,8 @@ export const createClient = async (client: CreateClientRequest) => {
   const { data } = await api.post("/clients", client);
   return data;
 };
+
+export const getClientById = async (id: string) => {
+  const { data } = await api.get(`/clients/${id}`);
+  return data;
+}
