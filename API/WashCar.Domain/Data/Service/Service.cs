@@ -1,4 +1,5 @@
-﻿using School.Domain.Core;
+﻿
+using WashCar.Domain.Core;
 
 namespace WashCar.Domain.Data.Service;
 

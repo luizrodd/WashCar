@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace School.Domain.Core
+namespace WashCar.Domain.Core
 {
     public interface IExternalSourceRepository<TEntity, TKey> where TEntity : IExternalSource
     {

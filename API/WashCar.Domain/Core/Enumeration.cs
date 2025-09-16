@@ -1,4 +1,4 @@
-﻿namespace School.Domain.Core
+﻿namespace WashCar.Domain.Core
 {
     public abstract class Enumeration : IComparable
     {

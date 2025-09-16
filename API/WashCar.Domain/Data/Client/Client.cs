@@ -1,4 +1,5 @@
-﻿using School.Domain.Core;
+﻿
+using WashCar.Domain.Core;
 
 namespace WashCar.Domain.Data.Client;
 
@@ -11,13 +12,14 @@ public class Client : Entity<Guid>, IAggregateRoot
         _vehicles = new List<Vehicle>();
     }
 
-    public Client(string name, string email, string phoneNumber) : this()
+    public Client(string name, string email, string phoneNumber, Vehicle vehicle) : this()
     {
         Id = Guid.NewGuid();
 
         Name = name;
         Email = email;
         PhoneNumber = phoneNumber;
+        _vehicles.Add(vehicle);
 
         CreatedAt = DateTime.UtcNow;
     }
