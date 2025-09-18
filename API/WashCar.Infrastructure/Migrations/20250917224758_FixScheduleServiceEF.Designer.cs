@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WashCar.Infrastructure;
 
@@ -11,9 +12,11 @@ using WashCar.Infrastructure;
 namespace WashCar.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDataContext))]
-    partial class ApplicationDataContextModelSnapshot : ModelSnapshot
+    [Migration("20250917224758_FixScheduleServiceEF")]
+    partial class FixScheduleServiceEF
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,10 +134,6 @@ namespace WashCar.Infrastructure.Migrations
                     b.Property<DateTime>("ScheduledAt")
                         .HasColumnType("smalldatetime");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int")
-                        .HasColumnName("Status");
-
                     b.Property<Guid>("VehicleId")
                         .HasColumnType("uniqueidentifier");
 
@@ -166,38 +165,6 @@ namespace WashCar.Infrastructure.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("ScheduleServices");
-                });
-
-            modelBuilder.Entity("WashCar.Domain.Data.Schedule.ScheduleStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ScheduleStatus");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 0,
-                            Name = "Pending"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            Name = "Completed"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Canceled"
-                        });
                 });
 
             modelBuilder.Entity("WashCar.Domain.Data.Service.Service", b =>

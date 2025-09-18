@@ -18,6 +18,8 @@ public class Schedule : Entity<Guid>, IAggregateRoot
 
         VehicleId = vehicleId;
         ScheduledAt = scheduledAt;
+        Status = ScheduleStatusEnum.Pending;
+
         CreatedAt = DateTime.UtcNow;
 
         _services.AddRange(servicesId.Select(serviceId => new ScheduleService(serviceId)));
@@ -29,7 +31,7 @@ public class Schedule : Entity<Guid>, IAggregateRoot
 
 
     public DateTime ScheduledAt { get; private set; }
-
+    public ScheduleStatusEnum Status { get; private set; } 
     public Guid VehicleId { get; private set; }
     public IReadOnlyCollection<ScheduleService> Services => _services;
     public DateTime CreatedAt { get; private set; }

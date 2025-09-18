@@ -1,60 +1,52 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, Plus, Filter } from "lucide-react";
+import { useGetSchedulesByDate } from "@/hooks/use-schedule";
+import { ClientProps } from "./Clients";
+import { VehicleProps } from "./ClientDetails";
+import { useMemo } from "react";
+import { format } from "date-fns";
+
+export interface AppointmentProps {
+  totalAppointments: number;
+  schedulesCancelled: number;
+  schedulesPending: number;
+  schedulesCompleted: number;
+  schedules: ScheduleProps[]
+}
+
+interface ScheduleProps {
+  client: ClientProps;
+  services: ServiceProps[];
+  vehicle: VehicleProps;
+  scheduledAt: Date;
+  status: "completed" | "pending" | "cancelled";
+}
+
+interface ServiceProps {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  type: string;
+  createdAt: Date;
+  lastUpdatedAt?: Date;
+}
 
 const Schedule = () => {
-  const appointments = [
-    { 
-      id: 1, 
-      time: "8:00 AM", 
-      client: "John Smith", 
-      vehicle: "Honda Civic 2020", 
-      service: "Full Wash & Wax", 
-      duration: "45 min", 
-      status: "confirmed",
-      phone: "(555) 123-4567"
-    },
-    { 
-      id: 2, 
-      time: "9:00 AM", 
-      client: "Sarah Johnson", 
-      vehicle: "Toyota RAV4 2019", 
-      service: "Express Wash", 
-      duration: "20 min", 
-      status: "pending",
-      phone: "(555) 234-5678"
-    },
-    { 
-      id: 3, 
-      time: "10:30 AM", 
-      client: "Mike Davis", 
-      vehicle: "BMW X3 2021", 
-      service: "Detail Package", 
-      duration: "90 min", 
-      status: "confirmed",
-      phone: "(555) 345-6789"
-    },
-    { 
-      id: 4, 
-      time: "1:00 PM", 
-      client: "Lisa Wilson", 
-      vehicle: "Ford Explorer 2018", 
-      service: "Interior Clean", 
-      duration: "60 min", 
-      status: "confirmed",
-      phone: "(555) 456-7890"
-    },
-    { 
-      id: 5, 
-      time: "3:00 PM", 
-      client: "Robert Brown", 
-      vehicle: "Audi Q5 2022", 
-      service: "Full Detail", 
-      duration: "120 min", 
-      status: "pending",
-      phone: "(555) 567-8901"
-    }
-  ];
+  const today = useMemo(() => new Date(), []);
+  const { data, error, isLoading } = useGetSchedulesByDate(today);
+
+  console.log(data)
+
+  const appointment: AppointmentProps = data
+
+  if (isLoading) return <div>Loading schedule...</div>;
+  if (error) return <div>Error loading schedule</div>;
+
+  const formatDate = (date: string | Date) => {
+    return format(new Date(date), "HH:mm");
+  };
 
   return (
     <div className="space-y-6">
@@ -81,35 +73,30 @@ const Schedule = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calendar className="h-5 w-5" />
-                Today's Appointments - March 15, 2024
+                Today's Appointments - {format(today, "dd/MM/yyyy")}
               </CardTitle>
-              <CardDescription>5 appointments scheduled</CardDescription>
+              <CardDescription>{appointment.totalAppointments} appointments scheduled</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {appointments.map((appointment) => (
-                  <div key={appointment.id} className="flex items-center justify-between p-4 rounded-lg border hover:shadow-sm transition-shadow">
+                {appointment.schedules.map((schedule) => (
+                  <div key={schedule.client.id} className="flex items-center justify-between p-4 rounded-lg border hover:shadow-sm transition-shadow">
                     <div className="flex items-center gap-4">
                       <div className="text-center">
-                        <div className="font-medium text-primary">{appointment.time}</div>
-                        <div className="text-sm text-muted-foreground flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {appointment.duration}
-                        </div>
+                        <div className="font-medium text-primary">{formatDate(schedule.scheduledAt.toString())}</div>
                       </div>
                       <div className="border-l pl-4">
-                        <p className="font-medium">{appointment.client}</p>
-                        <p className="text-sm text-muted-foreground">{appointment.vehicle}</p>
-                        <p className="text-sm text-muted-foreground">{appointment.service}</p>
-                        <p className="text-xs text-muted-foreground">{appointment.phone}</p>
+                        <p className="font-medium">{schedule.client.name}</p>
+                        <p className="text-sm text-muted-foreground">{schedule.vehicle.model}</p>
+                        <p className="text-sm text-muted-foreground">{schedule.services.map(service => service.name).join(", ")}</p>
+                        <p className="text-xs text-muted-foreground">{schedule.client.phoneNumber}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        appointment.status === 'confirmed' ? 'bg-success-light text-success' :
-                        'bg-warning-light text-warning'
-                      }`}>
-                        {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${schedule.status === 'completed' ? 'bg-success-light text-success' :
+                          'bg-warning-light text-warning'
+                        }`}>
+                        {schedule.status.charAt(0).toUpperCase() + schedule.status.slice(1)}
                       </span>
                       <Button variant="outline" size="sm">
                         Edit
@@ -130,19 +117,15 @@ const Schedule = () => {
             <CardContent className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Total Today</span>
-                <span className="font-medium">5 appointments</span>
+                <span className="font-medium">{appointment.totalAppointments} appointments</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">Confirmed</span>
-                <span className="font-medium text-success">3</span>
+                <span className="text-sm text-muted-foreground">Completed</span>
+                <span className="font-medium text-success">{appointment.schedulesCompleted}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">Pending</span>
-                <span className="font-medium text-warning">2</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">Total Duration</span>
-                <span className="font-medium">5h 35min</span>
+                <span className="font-medium text-warning">{appointment.schedulesPending}</span>
               </div>
             </CardContent>
           </Card>

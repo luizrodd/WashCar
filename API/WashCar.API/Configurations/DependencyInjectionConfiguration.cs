@@ -1,4 +1,5 @@
 ﻿using WashCar.API.Application.Policy;
+using WashCar.API.Application.Queries;
 using WashCar.Domain.Core;
 using WashCar.Domain.Data.Client;
 using WashCar.Domain.Data.Schedule;
@@ -19,6 +20,8 @@ namespace WashCar.API.Configurations
             services.AddScoped<IServiceRepository, ServiceRepository>();
 
             //Queries
+            services.AddScoped<IAvaibleTimeQueries, AvaibleTimeQueries>();
+            services.AddScoped<ISchedulesQueries, ScheduleQueries>();
 
             //Services
 

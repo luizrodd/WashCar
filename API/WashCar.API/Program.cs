@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WashCar.API.Application.Infrastructure;
 using WashCar.API.Configurations;
 using WashCar.Infrastructure;
 
@@ -17,6 +18,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDependencyInjectionConfiguration(builder.Configuration);
+builder.Services.AddScoped(provider =>
+    new SqlConnectionProvider(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddCors(options =>
 {

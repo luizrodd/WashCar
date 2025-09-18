@@ -1,5 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useGetSchedulesByDate } from "@/hooks/use-schedule";
 import { Calendar, Car, Users, DollarSign, Clock, Droplets } from "lucide-react";
+import { useMemo } from "react";
+import { AppointmentProps } from "./Schedule";
+import { format } from "date-fns";
 
 const Dashboard = () => {
   const stats = [
@@ -13,7 +17,7 @@ const Dashboard = () => {
     {
       title: "Active Clients",
       value: "248",
-      description: "15 new this month", 
+      description: "15 new this month",
       icon: Users,
       trend: "+12% from last month"
     },
@@ -33,12 +37,16 @@ const Dashboard = () => {
     }
   ];
 
-  const recentAppointments = [
-    { id: 1, client: "John Smith", vehicle: "Honda Civic 2020", service: "Full Wash & Wax", time: "9:00 AM", status: "completed" },
-    { id: 2, client: "Sarah Johnson", vehicle: "Toyota RAV4 2019", service: "Express Wash", time: "10:30 AM", status: "in-progress" },
-    { id: 3, client: "Mike Davis", vehicle: "BMW X3 2021", service: "Detail Package", time: "11:00 AM", status: "pending" },
-    { id: 4, client: "Lisa Wilson", vehicle: "Ford Explorer 2018", service: "Interior Clean", time: "2:00 PM", status: "scheduled" },
-  ];
+  const today = useMemo(() => new Date(), []);
+  const { data, isLoading, error } = useGetSchedulesByDate(today);
+
+  const recentAppointments: AppointmentProps = data;
+  if (isLoading) return <div>Loading dashboard...</div>;
+  if (error) return <div>Error loading dashboard</div>;
+
+  const formatDate = (date: string | Date) => {
+    return format(new Date(date), "HH:mm");
+  };
 
   return (
     <div className="space-y-6">
@@ -74,21 +82,19 @@ const Dashboard = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {recentAppointments.map((appointment) => (
-                <div key={appointment.id} className="flex items-center justify-between p-3 rounded-lg border">
+              {recentAppointments.schedules.map((appointment) => (
+                <div key={appointment.client.id} className="flex items-center justify-between p-3 rounded-lg border">
                   <div className="space-y-1">
-                    <p className="font-medium">{appointment.client}</p>
-                    <p className="text-sm text-muted-foreground">{appointment.vehicle}</p>
-                    <p className="text-sm text-muted-foreground">{appointment.service}</p>
+                    <p className="font-medium">{appointment.client.name}</p>
+                    <p className="text-sm text-muted-foreground">{appointment.vehicle.model}</p>
+                    <p className="text-sm text-muted-foreground">{appointment.services.map(service => service.name).join(", ")}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium">{appointment.time}</p>
-                    <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
-                      appointment.status === 'completed' ? 'bg-success-light text-success' :
-                      appointment.status === 'in-progress' ? 'bg-warning-light text-warning' :
-                      appointment.status === 'pending' ? 'bg-primary-light text-primary' :
-                      'bg-secondary text-secondary-foreground'
-                    }`}>
+                    <p className="font-medium">{formatDate(appointment.scheduledAt)}</p>
+                    <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${appointment.status === 'completed' ? 'bg-success-light text-success' :
+                      appointment.status === 'pending' ? 'bg-warning-light text-warning' :
+                        'bg-secondary text-secondary-foreground'
+                      }`}>
                       {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
                     </span>
                   </div>

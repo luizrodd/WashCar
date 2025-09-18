@@ -10,7 +10,7 @@ import { CreateClientRequest } from "@/services/requests/createClientRequest";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useRoutes } from "react-router-dom";
 
-interface ClientProps {
+export interface ClientProps {
   id: number;
   name: string;
   phoneNumber: string;
