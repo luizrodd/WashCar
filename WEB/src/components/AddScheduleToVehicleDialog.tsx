@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -40,6 +40,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useServices } from "@/hooks/use-services";
 import { VehicleProps } from "@/pages/ClientDetails";
+import { useAvailableTimes } from "@/hooks/use-avaibletimes";
 
 const appointmentSchema = z.object({
   date: z.date().refine((date) => date !== undefined, {
@@ -65,25 +66,22 @@ interface AddScheduleToVehicleDialogProps {
   vehicles: VehicleProps[];
 }
 
-const timeSlots = [
-  "08:00", "08:30", "09:00", "09:30", "10:00", "10:30",
-  "11:00", "11:30", "12:00", "12:30", "13:00", "13:30",
-  "14:00", "14:30", "15:00", "15:30", "16:00", "16:30",
-  "17:00", "17:30"
-];
-
-
-export function AddScheduleToVehicleDialog({ 
-  open, 
-  onOpenChange, 
-  onSubmit, 
+export function AddScheduleToVehicleDialog({
+  open,
+  onOpenChange,
+  onSubmit,
   clientName,
   vehicles
 }: AddScheduleToVehicleDialogProps) {
-  const { data, isLoading, error} = useServices();
+  const date = useMemo(() => new Date(), []);
+  const [selectedDate, setSelectedDate] = useState<Date>(date);
+  const { data, isLoading, error } = useServices();
+  const { data: avaibleTimes, isLoading: isLoadingTimes } = useAvailableTimes(selectedDate);
   const form = useForm<AppointmentFormData>({
     resolver: zodResolver(appointmentSchema),
     defaultValues: {
+      date: date,
+      time: "",
       serviceTypes: [],
       vehicleId: "",
     },
@@ -91,15 +89,22 @@ export function AddScheduleToVehicleDialog({
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading services</div>;
-  
+
 
   const serviceTypes = data || [];
+  const timeSlots = avaibleTimes || [];
 
   const handleSubmit = (data: AppointmentFormData) => {
     onSubmit(data);
     form.reset();
     onOpenChange(false);
   };
+
+  const onDateChange = (date: Date) => {
+    setSelectedDate(date || new Date());
+    form.setValue("date", date);
+    form.setValue("time", ""); 
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -110,7 +115,7 @@ export function AddScheduleToVehicleDialog({
             Create a new appointment for {clientName}
           </DialogDescription>
         </DialogHeader>
-        
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
             {/* Date Field */}
@@ -143,7 +148,7 @@ export function AddScheduleToVehicleDialog({
                       <Calendar
                         mode="single"
                         selected={field.value}
-                        onSelect={field.onChange}
+                        onSelect={(selectedDate) => onDateChange(selectedDate)}
                         initialFocus
                         className={cn("p-3 pointer-events-auto")}
                       />
@@ -211,10 +216,10 @@ export function AddScheduleToVehicleDialog({
                                     return checked
                                       ? field.onChange([...field.value, service])
                                       : field.onChange(
-                                          field.value?.filter(
-                                            (value) => value.id !== service.id
-                                          )
+                                        field.value?.filter(
+                                          (value) => value.id !== service.id
                                         )
+                                      )
                                   }}
                                 />
                               </FormControl>

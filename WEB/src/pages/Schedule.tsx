@@ -37,9 +37,8 @@ const Schedule = () => {
   const today = useMemo(() => new Date(), []);
   const { data, error, isLoading } = useGetSchedulesByDate(today);
 
-  console.log(data)
 
-  const appointment: AppointmentProps = data
+  const appointment = data;
 
   if (isLoading) return <div>Loading schedule...</div>;
   if (error) return <div>Error loading schedule</div>;

@@ -65,7 +65,6 @@ export default function ClientDetails() {
     }
 
     const handleAddAppointment = (appointmentData: any) => {
-        console.log(appointmentData)
         var request: CreateScheduleRequest = {
             scheduledAt: formatDate(appointmentData.date, appointmentData.time),
             servicesId: appointmentData.serviceTypes.map((service: any) => service.id),
@@ -75,8 +74,6 @@ export default function ClientDetails() {
         createSchedule.mutate(request, {
             onSuccess: () => {
                 toast.success("Appointment scheduled successfully!");
-                // Optionally, you can refetch the client data to show the new appointment
-                // queryClient.invalidateQueries(["client", id]);
                 setIsAddAppointmentOpen(false);
             },
             onError: () => {

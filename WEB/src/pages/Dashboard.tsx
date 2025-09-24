@@ -39,8 +39,8 @@ const Dashboard = () => {
 
   const today = useMemo(() => new Date(), []);
   const { data, isLoading, error } = useGetSchedulesByDate(today);
+  const recentAppointments = data;
 
-  const recentAppointments: AppointmentProps = data;
   if (isLoading) return <div>Loading dashboard...</div>;
   if (error) return <div>Error loading dashboard</div>;
 
@@ -82,7 +82,7 @@ const Dashboard = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {recentAppointments.schedules.map((appointment) => (
+              {recentAppointments.schedules.length != 0 ? recentAppointments.schedules.map((appointment) => (
                 <div key={appointment.client.id} className="flex items-center justify-between p-3 rounded-lg border">
                   <div className="space-y-1">
                     <p className="font-medium">{appointment.client.name}</p>
@@ -99,7 +99,7 @@ const Dashboard = () => {
                     </span>
                   </div>
                 </div>
-              ))}
+              )) : <p className="text-sm text-muted-foreground">No appointments scheduled for today.</p>}
             </div>
           </CardContent>
         </Card>

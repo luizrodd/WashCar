@@ -28,7 +28,6 @@ const navigation = [
   { title: "Schedule", url: "/schedule", icon: Calendar },
   { title: "Services", url: "/services", icon: Wrench },
   { title: "Clients", url: "/clients", icon: Users },
-  { title: "Vehicles", url: "/vehicles", icon: Car },
   { title: "Receipts", url: "/receipts", icon: Receipt },
 ];
 
