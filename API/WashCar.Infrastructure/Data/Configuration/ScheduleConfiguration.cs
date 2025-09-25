@@ -23,6 +23,9 @@ public class ScheduleConfiguration : IEntityTypeConfiguration<Schedule>
         builder.Property(s => s.CreatedAt)
             .IsRequired();
 
+        builder.Property(s => s.UpdatedAt)
+            .IsRequired();
+
         builder.Property(s => s.VehicleId)
             .IsRequired();
 

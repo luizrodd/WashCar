@@ -29,6 +29,7 @@ const navigation = [
   { title: "Services", url: "/services", icon: Wrench },
   { title: "Clients", url: "/clients", icon: Users },
   { title: "Receipts", url: "/receipts", icon: Receipt },
+  { title: "Calendar", url: "/calendar", icon: Calendar },
 ];
 
 export function AdminSidebar() {

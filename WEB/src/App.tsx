@@ -9,6 +9,7 @@ import Schedule from "./pages/Schedule";
 import Clients from "./pages/Clients";
 import NotFound from "./pages/NotFound";
 import ClientDetails from "./pages/ClientDetails";
+import Calendar from "./pages/Calendar";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,11 @@ const App = () => (
           <Route path="/clients/:id" element={
             <AdminLayout>
               <ClientDetails />
+            </AdminLayout>
+          } />
+          <Route path="/calendar" element={
+            <AdminLayout>
+              <Calendar />
             </AdminLayout>
           } />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

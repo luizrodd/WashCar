@@ -44,5 +44,28 @@ namespace WashCar.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("{startDate}/to/{endDate}")]
+        [ProducesResponseType(typeof(List<AppointmentsDetailsDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> GetByRange(DateTime startDate, DateTime endDate)
+        {
+            var result = await _schedulesQueries.GetByRange(startDate, endDate);
+            if (result == null)
+                return NoContent();
+            return Ok(result);
+        }
+
+        [HttpPost("complete/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Complete(Guid id)
+        {
+            var command = new CompleteScheduleCommand(id);
+            var result = await _mediator.Send(command);
+            if (!result)
+                return BadRequest();
+            return Ok();
+        }
     }
 }
