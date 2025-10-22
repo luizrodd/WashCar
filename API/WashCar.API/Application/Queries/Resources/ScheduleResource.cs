@@ -5,6 +5,7 @@
         public static string GET_ALL_SCHEDULES_BY_DATE = @"
      SELECT (
         SELECT
+        s.Id as Id,
         JSON_QUERY((
             SELECT c.Id, c.Name, c.CreatedAt, c.PhoneNumber, c.Email
             FOR JSON PATH, WITHOUT_ARRAY_WRAPPER

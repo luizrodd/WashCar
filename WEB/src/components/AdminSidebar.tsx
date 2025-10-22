@@ -63,17 +63,21 @@ export function AdminSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Management</SidebarGroupLabel>
-          <SidebarGroupContent>
+          <SidebarGroupContent className="px-5">
             <SidebarMenu>
               {navigation.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink to={item.url} end className={getNavCls}>
-                      <item.icon />
-                      {!isCollapsed && <span>{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton asChild>
+                <NavLink
+                  to={item.url}
+                  end
+                  className={getNavCls({ isActive: isActive(item.url) })}
+                >
+                  <item.icon />
+                  {!isCollapsed && <span>{item.title}</span>}
+                </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>

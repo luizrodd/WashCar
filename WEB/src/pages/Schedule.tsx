@@ -1,12 +1,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, Plus, Filter } from "lucide-react";
-import { useGetSchedulesByDate } from "@/hooks/use-schedule";
+import { useCompleteSchedule, useGetSchedulesByDate } from "@/hooks/use-schedule";
 import { ClientProps } from "./Clients";
 import { VehicleProps } from "./ClientDetails";
 import { useMemo, useState } from "react";
 import { format } from "date-fns";
 import { CreateAppointmentDialog } from "@/components/CreateAppointmentDialog";
+import { toast } from "sonner";
 
 export interface AppointmentProps {
   totalAppointments: number;
@@ -17,6 +18,7 @@ export interface AppointmentProps {
 }
 
 export interface ScheduleProps {
+  id: string;
   client: ClientProps;
   services: ServiceProps[];
   vehicle: VehicleProps;
@@ -38,6 +40,7 @@ const Schedule = () => {
   const today = useMemo(() => new Date(), []);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const { data, error, isLoading, refetch } = useGetSchedulesByDate(today);
+  const completeSchedule = useCompleteSchedule();
 
   const appointment = data;
 
@@ -47,6 +50,17 @@ const Schedule = () => {
   const formatDate = (date: string | Date) => {
     return format(new Date(date), "HH:mm");
   };
+
+  const handleCompleteSchedule = async (id: string) => {
+    try {
+      await completeSchedule.mutateAsync(id);
+      toast.success("Complete successfully!");
+      appointment.schedules.find(x => x.id == id).status = 'completed'
+    } catch (error) {
+      toast.error("Failed to complete appointment. Please try again.");
+      console.error(error);
+    }
+  }
 
   return (
     <>
@@ -94,14 +108,16 @@ const Schedule = () => {
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${schedule.status === 'completed' ? 'bg-success-light text-success' :
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium 
+                        ${schedule.status.toLowerCase() === 'completed' ? 
+                        'bg-success-light text-success' :
                           'bg-warning-light text-warning'
                           }`}>
                           {schedule.status.charAt(0).toUpperCase() + schedule.status.slice(1)}
                         </span>
                         {
-                          schedule.status.toLowerCase() === 'completed' ?
-                            <Button variant="success" size="sm" disabled={schedule.status.toLowerCase() === 'completed' ? true : false}>
+                          schedule.status.toLowerCase() === 'pending' ?
+                            <Button onClick={() => handleCompleteSchedule(schedule.id)} variant="success" size="sm" disabled={schedule.status.toLowerCase() === 'completed' ? true : false}>
                               Completed
                             </Button>
                             :

@@ -1,4 +1,4 @@
-import { CreateSchedule, GetScheduleByRangeDate, GetSchedulesByDate } from "@/services/scheduleService"
+import { CompleteSchedule, CreateSchedule, GetScheduleByRangeDate, GetSchedulesByDate } from "@/services/scheduleService"
 import { useMutation, useQuery } from "@tanstack/react-query"
 
 export const useCreateSchedule = () => {
@@ -21,5 +21,11 @@ export const useGetScheduleByRangeDate = (startDate: Date, endDate: Date) => {
         queryKey: ["schedules", startDate, endDate],
         queryFn: () => GetScheduleByRangeDate(startDate, endDate),
         enabled: !!startDate && !!endDate, // Only run the query if both dates are truthy
+    })
+}
+
+export const useCompleteSchedule = () => {
+    return useMutation({
+        mutationFn: CompleteSchedule
     })
 }

@@ -10,6 +10,8 @@ import Clients from "./pages/Clients";
 import NotFound from "./pages/NotFound";
 import ClientDetails from "./pages/ClientDetails";
 import Calendar from "./pages/Calendar";
+import Receipts from "./pages/Receipts";
+import Services from "./pages/Services";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +42,22 @@ const App = () => (
               <ClientDetails />
             </AdminLayout>
           } />
+          {
+            <Route path="/receipts" element={
+              <AdminLayout>
+                <Receipts />
+              </AdminLayout>
+            }
+            />
+          }
+          {
+            <Route path="/services" element={
+              <AdminLayout>
+                <Services />
+              </AdminLayout>
+            }
+            />
+          }
           <Route path="/calendar" element={
             <AdminLayout>
               <Calendar />

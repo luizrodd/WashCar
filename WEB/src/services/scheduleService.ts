@@ -22,3 +22,8 @@ export const GetScheduleByRangeDate = async (startDate: Date, endDate: Date) => 
   const { data } = await api.get(`/schedules/${startDate.toISOString()}/to/${endDate.toISOString()}`);
   return data as CalendarProps[] || [];
 }
+
+export const CompleteSchedule = async (id: string) => {
+  const { data } = await api.post(`/schedules/complete/${id}`)
+  return data;
+}

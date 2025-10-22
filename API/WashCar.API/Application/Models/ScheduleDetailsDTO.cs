@@ -2,6 +2,7 @@
 {
     public class ScheduleDetailsDTO
     {
+        public Guid Id { get; set; }
         public ClientDTO Client { get; set; }
         public VehicleDTO Vehicle { get; set; }
         public List<ServiceDTO> Services { get; set; }
