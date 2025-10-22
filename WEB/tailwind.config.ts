@@ -34,6 +34,11 @@ export default {
           foreground: "hsl(var(--success-foreground))",
           light: "hsl(var(--success-light))",
         },
+        cancelled: {
+          DEFAULT: "hsl(var(--cancelled))",
+          foreground: "hsl(var(--cancelled-foreground))",
+          light: "hsl(var(--cancelled-light))"
+        },
         warning: {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",

@@ -1,11 +1,26 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, Menu, Search, HelpCircle, Settings } from "lucide-react";
+import { ScheduleProps } from "./Schedule";
+import { useGetScheduleByRangeDate } from "@/hooks/use-schedule";
+import { startOfWeek, endOfWeek } from "date-fns";
+import { format } from "date-fns";
+
+export interface CalendarProps {
+  day: string,
+  appointments: ScheduleProps[]
+}
 
 type ViewMode = "month" | "week" | "day";
 
 const Calendar = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const date = useMemo(() => new Date(), []);
+  const [currentDate, setCurrentDate] = useState(date);
   const [viewMode, setViewMode] = useState<ViewMode>("week");
+  const { data, isLoading, isError } = useGetScheduleByRangeDate(
+    startOfWeek(currentDate, { weekStartsOn: 0 }),
+    endOfWeek(currentDate, { weekStartsOn: 0 }));
+
+  const appointments = data || [];
 
   const getDaysInMonth = (date: Date) => {
     const year = date.getFullYear();
@@ -77,15 +92,21 @@ const Calendar = () => {
   };
 
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString('pt-BR', { 
+    return date.toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: 'long',
       year: 'numeric'
     });
   };
 
+  const validateIfAppointmentIsInCurrentDay = (day: Date, calendar: CalendarProps) => {
+    const formattedDay = format(day, "yyyy-MM-dd");
+
+    return calendar.day === formattedDay;
+  }
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white rounded-lg mt-8">
       <header className="flex items-center justify-between px-6 py-2 border-b border-gray-200">
         <div className="flex items-center space-x-4">
           <button className="px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 rounded-md">
@@ -119,7 +140,7 @@ const Calendar = () => {
             {viewMode === "day" && formatDate(currentDate)}
           </h1>
         </div>
-        
+
         <div className="flex items-center space-x-4">
           <div className="flex items-center">
             <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
@@ -132,7 +153,7 @@ const Calendar = () => {
               <Settings className="w-5 h-5 text-gray-600" />
             </button>
           </div>
-          <select 
+          <select
             value={viewMode}
             onChange={(e) => setViewMode(e.target.value as ViewMode)}
             className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -174,20 +195,18 @@ const Calendar = () => {
                     {row.map((day, colIndex) => (
                       <td
                         key={colIndex}
-                        className={`border border-gray-200 h-[120px] align-top ${
-                          !day ? "bg-gray-50" : "hover:bg-gray-50"
-                        }`}
+                        className={`border border-gray-200 h-[120px] align-top ${!day ? "bg-gray-50" : "hover:bg-gray-50"
+                          }`}
                       >
                         {day && (
                           <div className="p-2">
                             <span
-                              className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm ${
-                                day === new Date().getDate() &&
+                              className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm ${day === new Date().getDate() &&
                                 currentDate.getMonth() === new Date().getMonth() &&
                                 currentDate.getFullYear() === new Date().getFullYear()
-                                  ? "bg-blue-600 text-white"
-                                  : "text-gray-700 hover:bg-gray-200"
-                              }`}
+                                ? "bg-blue-600 text-white"
+                                : "text-gray-700 hover:bg-gray-200"
+                                }`}
                             >
                               {day}
                             </span>
@@ -211,13 +230,12 @@ const Calendar = () => {
                 {weekDays.map((day, i) => (
                   <th key={day} className="border-b border-gray-200 p-2">
                     <div className="text-sm text-gray-500">{day}</div>
-                    <div className={`mt-1 text-2xl ${
-                      getWeekDays()[i].getDate() === new Date().getDate() &&
+                    <div className={`mt-1 text-2xl ${getWeekDays()[i].getDate() === new Date().getDate() &&
                       getWeekDays()[i].getMonth() === new Date().getMonth() &&
                       getWeekDays()[i].getFullYear() === new Date().getFullYear()
-                        ? "text-blue-600 font-medium"
-                        : "text-gray-900"
-                    }`}>
+                      ? "text-blue-600 font-medium"
+                      : "text-gray-900"
+                      }`}>
                       {getWeekDays()[i].getDate()}
                     </div>
                   </th>
@@ -230,7 +248,27 @@ const Calendar = () => {
                   <td
                     key={index}
                     className="border border-gray-200 h-[600px] align-top hover:bg-gray-50"
-                  />
+                  >
+                    {appointments.map((appointment) => (
+                      <div key={date}>
+                        {validateIfAppointmentIsInCurrentDay(date, appointment) && (
+                          <div>
+                            {
+                              appointment.appointments.map((appt) => (
+                                <div className="m-2 p-2 bg-blue-100 text-blue-800 rounded-lg text-sm">
+                                  <div key={appt.client.id} className="mb-1">
+                                    <div>{appt.vehicle.model}</div>
+                                    <div>{appt.client.name}</div>
+                                    <div className="text-xs text-gray-600">{appt.status}</div>
+                                  </div>
+                                </div>
+                              ))
+                            }
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </td>
                 ))}
               </tr>
             </tbody>

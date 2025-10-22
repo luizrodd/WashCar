@@ -1,6 +1,7 @@
 import api from "@/api/fetchClient";
 import { CreateScheduleRequest } from "./requests/createScheduleRequest";
 import { AppointmentProps } from "@/pages/Schedule";
+import { CalendarProps } from "@/pages/Calendar";
 
 export const CreateSchedule = async (schedule: CreateScheduleRequest) => {
   const { data } = await api.post("/schedules", schedule);
@@ -15,4 +16,9 @@ export const GetSchedulesByDate = async (date: Date) => {
     schedulesCancelled: 0, 
     schedulesCompleted: 0, 
     schedulesPending: 0 };  ;
+}
+
+export const GetScheduleByRangeDate = async (startDate: Date, endDate: Date) => {
+  const { data } = await api.get(`/schedules/${startDate.toISOString()}/to/${endDate.toISOString()}`);
+  return data as CalendarProps[] || [];
 }
